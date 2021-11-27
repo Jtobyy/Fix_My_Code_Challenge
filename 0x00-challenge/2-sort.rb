@@ -57,5 +57,3 @@ end
 sort_arr(result)
 
 puts result
-
-
