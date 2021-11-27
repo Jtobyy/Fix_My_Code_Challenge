@@ -16,35 +16,46 @@ ARGV.each do |arg|
     is_inserted = false
     i = 0
     l = result.size
-    puts "l: "
-    puts  l
-    puts "result: "
-    print  result
     while !is_inserted && i < l do
-      if result[i] >= i_arg
-        i += 1
-      else
-        print "i: "
-        puts i
-        print "l: "
-        puts l
-        if (i + 1) < l
-          sub = result[i + 1...l]
-          j = i + 1;
-          while j < result.size do
-            result.delete_at(j)
-          end
-          result << i_arg
-          puts
-          result.concat(sub)
+        if result[i] < i_arg
+            i += 1
         else
-          result << i_arg
+            result.insert(i - 1, i_arg)
+            is_inserted = true
+            break
         end
-        is_inserted = true
-        break
-      end
     end
-    result.unshift(i_arg) if !is_inserted
+    result << i_arg if !is_inserted
 end
 
+def sort_arr(arr)
+  i = 0
+  while i < arr.size && i + 1 < arr.size do
+    if arr[i] > arr[i + 1]
+      tmp = arr[i]
+      arr[i] = arr[i + 1]
+      arr[i + 1] = tmp
+    end
+    i += 1
+  end
+  if !check_sort(arr)
+    sort_arr(arr)
+  end
+end
+
+def check_sort(arr)
+  j = 0
+  while j < arr.size && j + 1 < arr.size do
+    if arr[j] > arr[j + 1]
+      return false
+    end
+    j += 1
+  end
+  return true
+end
+
+sort_arr(result)
+
 puts result
+
+
